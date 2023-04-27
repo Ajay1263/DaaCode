@@ -1,0 +1,38 @@
+/* A Naive recursive implementation of LCS problem */
+#include <bits/stdc++.h>
+
+int max(int a, int b);
+
+/* Returns length of LCS for X[0..m-1], Y[0..n-1] */
+int lcs(char* X, char* Y, int m, int n)
+{
+	if (m == 0 || n == 0)
+		return 0;
+	if (X[m - 1] == Y[n - 1])
+		return 1 + lcs(X, Y, m - 1, n - 1);
+	else
+		return max(lcs(X, Y, m, n - 1), lcs(X, Y, m - 1, n));
+}
+
+/* Utility function to get max of 2 integers */
+int max(int a, int b)
+{
+	return (a > b) ? a : b;
+}
+
+/* Driver program to test above function */
+int main()
+{
+	char X[] = "AGGTAB";
+	char Y[] = "GXTXAYB";
+
+	int m = strlen(X);
+	int n = strlen(Y);
+
+	printf("Length of LCS is %d\n", lcs(X, Y, m, n));
+
+	return 0;
+}
+// The main function is lcs which takes two character arrays X and Y and two integers m and n as arguments. The function returns the length of the LCS for X[0..m-1] and Y[0..n-1].
+
+The function first checks if either m or n is zero, which means that one of the arrays is empty and there can be no common subsequence. In this case, the function returns zero. If the last characters of both arrays match, then it includes that character in the LCS and recursively calls the function for the remaining arrays, excluding the last character. If the last characters do not match, then it recursively calls the function for the remaining arrays in two different ways, one with array X having its last character excluded and the other with array Y having its last character excluded. The function then returns the maximum of the two.
